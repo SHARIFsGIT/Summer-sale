@@ -2,19 +2,30 @@ let discountTerm = 200;
 let total = 0.0;
 let count = 0;
 function handleClick(data) {
-  const productName = data.childNodes[3].childNodes[3].innerText;
-  console.log(productName);
-  const price = data.childNodes[3].childNodes[5].innerText.split(" ")[0];
-  console.log(price);
+  const productName = data.parentNode.querySelector('h2').innerText;
+  const productPrice = data.parentNode.querySelector('p').innerText;
   const productList = document.getElementById("product-list");
-  const h4 = document.createElement("h4");
+  const addedItem = document.createElement("div");
+  const addedItemName = document.createElement("h4");
+  const addedItemPrice = document.createElement("h4");
   count++;
-  h4.innerText = count + ". " + productName;
-  h4.style.fontWeight = 'bold';
-  h4.style.fontSize = '18px';
+  addedItemName.innerText = count + ". " + productName;
+  addedItemName.style.fontWeight = 'bold';
+  addedItemName.style.fontSize = '18px';
+  
+  addedItemPrice.innerText = productPrice;
+  addedItemPrice.style.fontWeight = 'bold';
+  addedItemPrice.style.fontSize = '18px';
+  
+  addedItem.appendChild(addedItemName);
+  addedItem.appendChild(addedItemPrice);
 
-  productList.appendChild(h4);
-  total = parseFloat(total) + parseFloat(price);
+  addedItem.style.display = 'flex';
+  addedItem.style.justifyContent = 'space-between';
+
+  productList.appendChild(addedItem);
+
+  total = parseFloat(total) + parseFloat(productPrice);
   document.getElementById("total").innerText = total.toFixed(2);
   document.getElementById("total-price").innerText = total.toFixed(2);
 
